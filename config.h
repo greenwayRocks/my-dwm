@@ -12,11 +12,12 @@ static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 8;       /* vertical padding of bar */
+static const int vertpad            = 6;       /* vertical padding of bar */
 static const int sidepad            = 8;       /* horizontal padding of bar */
 static const char *fonts[]          = { "Monofur Nerd Font:size=13:antialias=true:autohint=true" };
 /* static const char *fonts[]          = { "monospace:size=14" }; */
-static const char dmenufont[]       = "monospace:size=12";
+/* static const char dmenufont[]       = "monospace:size=12"; */
+static const char dmenufont[]       = "Monofur Nerd Font:size=13:antialias=true:autohint=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -29,8 +30,29 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_red },
 };
-
 /* [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  }, */
+
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+
+/* const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };  */
+/* const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger", NULL }; */
+/* const char *spcmd3[] = {"keepassxc", NULL }; */
+
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "/home/mario/.local/bin/applauncher", NULL };
+const char *spcmd3[] = {"st", "-n", "spgoyo", "-g", "120x34", "-e", "nvim", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  144x41 */
+	{"spterm",      spcmd1},
+	{"splauncher",    spcmd2},
+	{"spgoyo",   spcmd3},
+};
+
+
+
 /* tagging     */
 static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 
@@ -42,6 +64,9 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ NULL,		  "spterm",		NULL,		SPTAG(0),		1,			 -1 },
+	{ NULL,		  "splauncher",		NULL,		SPTAG(1),		1,			 -1 },
+	{ NULL,		  "spgoyo",	NULL,		SPTAG(2),		1,			 -1 },
 };
 
 /* layout(s) */
@@ -73,6 +98,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *firefox[] = { "firefox", NULL };
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -112,6 +138,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ MODKEY|ShiftMask,  			      XK_Return, togglescratch,  {.ui = 0 } },
+	{ MODKEY,            			      XK_l,	     togglescratch,  {.ui = 1 } },
+	{ MODKEY,            			      XK_i,	     togglescratch,  {.ui = 2 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -134,7 +163,7 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY,         Button1,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
