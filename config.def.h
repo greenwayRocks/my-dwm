@@ -41,20 +41,20 @@ typedef struct {
 /* const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger", NULL }; */
 /* const char *spcmd3[] = {"keepassxc", NULL }; */
 
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", "-e", "/usr/local/bin/tm", NULL };
 const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "/home/mario/.local/bin/applauncher", NULL };
-const char *spcmd3[] = {"st", "-n", "spgoyo", "-g", "120x34", "-e", "nvim", NULL };
+const char *spcmd3[] = {"st", "-n", "spwiki", "-g", "120x34", "-e", "nvim", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  144x41 */
 	{"spterm",      spcmd1},
-	{"splauncher",    spcmd2},
-	{"spgoyo",   spcmd3},
+	{"splauncher",  spcmd2},
+	{"spwiki",   spcmd3},
 };
 
 
 
 /* tagging     */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -66,7 +66,7 @@ static const Rule rules[] = {
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 	{ NULL,		  "spterm",		NULL,		SPTAG(0),		1,			 -1 },
 	{ NULL,		  "splauncher",		NULL,		SPTAG(1),		1,			 -1 },
-	{ NULL,		  "spgoyo",	NULL,		SPTAG(2),		1,			 -1 },
+	{ NULL,		  "spwiki",	NULL,		SPTAG(2),		1,			 -1 },
 };
 
 /* layout(s) */
@@ -98,12 +98,14 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *firefox[] = { "firefox", NULL };
+static const char *upbright[] = { "sudo", "brillo", "-A", "10", NULL };
+static const char *downbright[] = { "sudo", "brillo", "-U", "10", NULL };
 
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,	                XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_x,      spawn,          {.v = firefox } },
 
 	{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
@@ -138,9 +140,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
-	{ MODKEY|ShiftMask,  			      XK_Return, togglescratch,  {.ui = 0 } },
-	{ MODKEY,            			      XK_l,	     togglescratch,  {.ui = 1 } },
-	{ MODKEY,            			      XK_i,	     togglescratch,  {.ui = 2 } },
+	{ MODKEY,           			      XK_Return, togglescratch,  {.ui = 0 } },
+	{ MODKEY,            			      XK_semicolon,	     togglescratch,  {.ui = 1 } },
+	{ MODKEY,            			      XK_w,	     togglescratch,  {.ui = 2 } },
+	{ MODKEY,                       XK_F2,     spawn,          {.v = upbright } },
+	{ MODKEY,                       XK_F1,     spawn,          {.v = downbright } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
