@@ -43,12 +43,12 @@ typedef struct {
 
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", "-e", "/usr/local/bin/tm", NULL };
 const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "/home/mario/.local/bin/applauncher", NULL };
-const char *spcmd3[] = {"st", "-n", "spwiki", "-g", "120x34", "-e", "nvim", NULL };
+const char *spcmd3[] = {"st", "-n", "spfm", "-g", "120x34", "-e", "ranger", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  144x41 */
 	{"spterm",      spcmd1},
 	{"splauncher",  spcmd2},
-	{"spwiki",   spcmd3},
+	{"spfm",   spcmd3},
 };
 
 
@@ -66,7 +66,7 @@ static const Rule rules[] = {
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
 	{ NULL,		  "spterm",		NULL,		SPTAG(0),		1,			 -1 },
 	{ NULL,		  "splauncher",		NULL,		SPTAG(1),		1,			 -1 },
-	{ NULL,		  "spwiki",	NULL,		SPTAG(2),		1,			 -1 },
+	{ NULL,		  "spfm",	NULL,		SPTAG(2),		1,			 -1 },
 };
 
 /* layout(s) */
@@ -129,6 +129,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -142,7 +143,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ MODKEY,           			      XK_Return, togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			      XK_semicolon,	     togglescratch,  {.ui = 1 } },
-	{ MODKEY,            			      XK_w,	     togglescratch,  {.ui = 2 } },
+	{ MODKEY,            			      XK_r,	     togglescratch,  {.ui = 2 } },
 	{ MODKEY,                       XK_F2,     spawn,          {.v = upbright } },
 	{ MODKEY,                       XK_F1,     spawn,          {.v = downbright } },
 	TAGKEYS(                        XK_1,                      0)
