@@ -7,7 +7,7 @@
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
-static const unsigned int borderpx  = 4;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -42,7 +42,7 @@ typedef struct {
 /* const char *spcmd3[] = {"keepassxc", NULL }; */
 
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", "-e", "/usr/local/bin/tm", NULL };
-const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "/home/mario/.local/bin/applauncher", NULL };
+const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "autoexec /home/mario/bin/go", NULL };
 const char *spcmd3[] = {"st", "-n", "spfm", "-g", "120x34", "-e", "ranger", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  144x41 */
