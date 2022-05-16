@@ -10,6 +10,7 @@ static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "togg
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 6;       /* vertical padding of bar */
@@ -42,7 +43,7 @@ typedef struct {
 /* const char *spcmd3[] = {"keepassxc", NULL }; */
 
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", "-e", "/usr/local/bin/tm", NULL };
-const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "autoexec /home/mario/bin/go", NULL };
+const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "/home/mario/.local/bin/bashCompiler", NULL };
 const char *spcmd3[] = {"st", "-n", "spfm", "-g", "120x34", "-e", "ranger", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  144x41 */
@@ -143,7 +144,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ MODKEY,           			      XK_Return, togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			      XK_semicolon,	     togglescratch,  {.ui = 1 } },
-	{ MODKEY,            			      XK_r,	     togglescratch,  {.ui = 2 } },
+	{ MODKEY,            			      XK_apostrophe,	     togglescratch,  {.ui = 2 } },
 	{ MODKEY,                       XK_F2,     spawn,          {.v = upbright } },
 	{ MODKEY,                       XK_F1,     spawn,          {.v = downbright } },
 	TAGKEYS(                        XK_1,                      0)
