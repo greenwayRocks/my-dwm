@@ -18,21 +18,29 @@ static const int sidepad            = 1;       /* horizontal padding of bar */
 static const char *fonts[]          = { "Monofur Nerd Font:size=14:antialias=true:autohint=true" };
 /* static const char *fonts[]          = { "monospace:size=14" }; */
 /* static const char dmenufont[]       = "monospace:size=12"; */
-static const char dmenufont[]       = "Monofur Nerd Font:size=13:antialias=true:autohint=true";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-/* static const char col_cyan[]        = "#bb83f7"; purple */
-static const char col_choco[]         = "#080808";
-static const char col_blue[]         = "#48b4e0";
+static const char dmenufont[]       = "Monofur Nerd Font:size=16:antialias=true:autohint=true";
+
+#include "/home/dex/.cache/wal/colors-wal-dmenu.h"
+
+// static const char col_gray1[]       = "#222222";
+// // static const char col_gray2[]       = "#444444";
+// static const char col_gray3[]       = "#bbbbbb";
+// static const char col_gray4[]       = "#eeeeee";
+// static const char col_cyan[]        = "#005577";
+// /* static const char col_cyan[]        = "#bb83f7"; purple */
+// // static const char col_choco[]         = "#080808";
+// static const char col_blue[]         = "#48b4e0";
+
+/*
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
+	//               fg         bg         border   
 	[SchemeNorm] = { col_gray3, col_gray1, col_choco },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_gray2 },
 };
-/* [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  }, */
+  // [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  }, 
+*/
+
+#include "/home/dex/.cache/wal/colors-wal-dwm.h"
 
 typedef struct {
 	const char *name;
@@ -43,8 +51,8 @@ typedef struct {
 /* const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger", NULL }; */
 /* const char *spcmd3[] = {"keepassxc", NULL }; */
 
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", "-e", "/usr/local/bin/tm", NULL };
-const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "/home/mario/.local/bin/bashCompiler", NULL };
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", "-e", "tm", NULL };
+const char *spcmd2[] = {"st", "-n", "splauncher", "-g", "120x34", "-e", "/home/mario/bin/bashCompiler", NULL };
 const char *spcmd3[] = {"st", "-n", "spfm", "-g", "120x34", "-e", "ranger", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  144x41 */
@@ -105,6 +113,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 static const char *firefox[] = { "firefox", NULL };
 static const char *upbright[] = { "sudo", "brillo", "-A", "10", NULL };
 static const char *downbright[] = { "sudo", "brillo", "-U", "10", NULL };
+static const char *screenshot[] = {"scrot", "/home/dex/pix/screens/%Y-%m-%d-%T-shot.jpg", NULL};
 
 
 static Key keys[] = {
@@ -116,6 +125,7 @@ static Key keys[] = {
 	{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
 	{ 0,                            XF86XK_AudioMute,        spawn, {.v = mutevol } },
 	{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+  { 0,                            XK_Print,                spawn, {.v = screenshot } },
   
 	{ MODKEY,                       XK_F10,    spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_F9,     spawn,          {.v = mutevol } },
@@ -146,11 +156,16 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+
 	{ MODKEY|ShiftMask,  			      XK_Return, togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			      XK_semicolon,	     togglescratch,  {.ui = 1 } },
 	{ MODKEY,            			      XK_apostrophe,	     togglescratch,  {.ui = 2 } },
+
+	{ MODKEY,                       XF86XK_MonBrightnessUp,     spawn,          {.v = upbright } },
+	{ MODKEY,                       XF86XK_MonBrightnessDown,     spawn,          {.v = downbright } },
 	{ MODKEY,                       XK_F2,     spawn,          {.v = upbright } },
 	{ MODKEY,                       XK_F1,     spawn,          {.v = downbright } },
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
